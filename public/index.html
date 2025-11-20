@@ -15,34 +15,65 @@
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
 
   <style>
+    :root {
+      --primary: #1e40af;
+      --primary-dark: #1e3a8a;
+      --primary-light: #3b82f6;
+      --secondary: #0f172a;
+      --bg-gradient-start: #f8fafc;
+      --bg-gradient-end: #e2e8f0;
+      --text-primary: #1e293b;
+      --text-secondary: #475569;
+      --card-bg: #ffffff;
+      --border-color: #e2e8f0;
+      --shadow: rgba(0, 0, 0, 0.1);
+    }
+    
+    [data-theme="dark"] {
+      --primary: #3b82f6;
+      --primary-dark: #2563eb;
+      --primary-light: #60a5fa;
+      --secondary: #1e293b;
+      --bg-gradient-start: #0f172a;
+      --bg-gradient-end: #1e293b;
+      --text-primary: #f1f5f9;
+      --text-secondary: #cbd5e1;
+      --card-bg: #1e293b;
+      --border-color: #334155;
+      --shadow: rgba(0, 0, 0, 0.3);
+    }
+    
     * {
       font-family: 'Cairo', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
     
     body {
-      background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+      background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
       min-height: 100vh;
+      color: var(--text-primary);
     }
     
     .gradient-text {
-      background: linear-gradient(135deg, #059669 0%, #047857 100%);
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
     
     .card-shadow {
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      background: var(--card-bg);
+      box-shadow: 0 10px 40px var(--shadow);
+      transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
     }
     
     .card-shadow:hover {
       transform: translateY(-5px);
-      box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 15px 50px var(--shadow);
     }
     
     .chapter-badge {
-      background: linear-gradient(135deg, #059669 0%, #047857 100%);
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
       color: white;
       padding: 0.5rem 1rem;
       border-radius: 9999px;
@@ -52,12 +83,37 @@
     }
     
     .stats-badge {
-      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
       color: white;
       padding: 0.75rem 1.5rem;
       border-radius: 9999px;
       font-weight: 600;
       font-size: 1.1rem;
+    }
+    
+    .theme-toggle {
+      position: fixed;
+      top: 1rem;
+      left: 1rem;
+      z-index: 100;
+      background: var(--card-bg);
+      border: 2px solid var(--border-color);
+      border-radius: 9999px;
+      padding: 0.5rem 0.75rem;
+      cursor: pointer;
+      box-shadow: 0 4px 12px var(--shadow);
+      transition: all 0.3s ease;
+    }
+    
+    .theme-toggle:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 16px var(--shadow);
+    }
+    
+    .theme-toggle svg {
+      width: 1.5rem;
+      height: 1.5rem;
+      color: var(--text-primary);
     }
     
     table {
@@ -77,7 +133,7 @@
     }
     
     th {
-      background: linear-gradient(135deg, #059669 0%, #047857 100%);
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
       color: white !important;
       padding: 0.75rem 0.5rem;
       text-align: right;
@@ -94,8 +150,9 @@
     
     td {
       padding: 0.625rem 0.5rem;
-      border-bottom: 1px solid #e5e7eb;
-      background: white;
+      border-bottom: 1px solid var(--border-color);
+      background: var(--card-bg);
+      color: var(--text-primary);
     }
     
     @media (min-width: 640px) {
@@ -109,15 +166,15 @@
     }
     
     tr:nth-child(even) td {
-      background: #f9fafb;
+      background: var(--bg-gradient-start);
     }
     
     .content-section {
-      background: white;
+      background: var(--card-bg);
       border-radius: 0.75rem;
       padding: 1.25rem;
       margin-bottom: 1.25rem;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+      box-shadow: 0 4px 6px var(--shadow);
     }
     
     @media (min-width: 640px) {
@@ -173,7 +230,7 @@
       font-size: 1.5rem;
       font-weight: 700;
       margin: 1.5rem 0 0.875rem;
-      color: #1f2937;
+      color: var(--text-primary);
     }
     
     @media (min-width: 640px) {
@@ -187,7 +244,7 @@
       font-size: 1.25rem;
       font-weight: 600;
       margin: 1.25rem 0 0.625rem;
-      color: #374151;
+      color: var(--text-primary);
     }
     
     @media (min-width: 640px) {
@@ -200,7 +257,7 @@
     p {
       line-height: 1.8;
       margin-bottom: 1rem;
-      color: #4b5563;
+      color: var(--text-secondary);
       font-size: 1.05rem;
     }
     
@@ -212,34 +269,34 @@
     li {
       margin-bottom: 0.5rem;
       line-height: 1.7;
-      color: #4b5563;
+      color: var(--text-secondary);
     }
     
     pre {
-      background: #f3f4f6;
+      background: var(--bg-gradient-start);
       padding: 1.5rem;
       border-radius: 0.75rem;
-      border-right: 4px solid #059669;
+      border-right: 4px solid var(--primary);
       margin: 1.5rem 0;
       overflow-x: auto;
     }
     
     code {
       font-family: 'Courier New', monospace;
-      color: #1f2937;
+      color: var(--text-primary);
       line-height: 1.6;
     }
     
     strong {
       font-weight: 700;
-      color: #1f2937;
+      color: var(--text-primary);
     }
     
     .scroll-top-btn {
       position: fixed;
       bottom: 2rem;
       left: 2rem;
-      background: linear-gradient(135deg, #059669 0%, #047857 100%);
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
       color: white;
       width: 3.5rem;
       height: 3.5rem;
@@ -248,7 +305,7 @@
       align-items: center;
       justify-content: center;
       font-size: 1.5rem;
-      box-shadow: 0 10px 25px rgba(5, 150, 105, 0.4);
+      box-shadow: 0 10px 25px var(--shadow);
       cursor: pointer;
       opacity: 0;
       visibility: hidden;
@@ -263,17 +320,17 @@
     
     .scroll-top-btn:hover {
       transform: translateY(-5px);
-      box-shadow: 0 15px 35px rgba(5, 150, 105, 0.5);
+      box-shadow: 0 15px 35px var(--shadow);
     }
     
     blockquote {
-      border-right: 4px solid #059669;
-      background: #f9fafb;
+      border-right: 4px solid var(--primary);
+      background: var(--bg-gradient-start);
       padding: 1.5rem;
       margin: 1.5rem 0;
       border-radius: 0.5rem;
       font-style: italic;
-      color: #4b5563;
+      color: var(--text-secondary);
     }
     
     .emoji {
@@ -293,11 +350,12 @@
 
   <script>
     tailwind.config = {
+      darkMode: 'class',
       theme: {
         extend: {
           colors: {
-            primary: '#059669',
-            secondary: '#047857'
+            primary: '#1e40af',
+            secondary: '#0f172a'
           }
         }
       }
@@ -306,11 +364,21 @@
 </head>
 <body class="antialiased">
 
+  <!-- Theme Toggle Button -->
+  <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">
+    <svg id="sunIcon" class="hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+    </svg>
+    <svg id="moonIcon" class="hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+    </svg>
+  </button>
+
   <!-- Cover Page -->
-  <div class="min-h-screen flex items-center justify-center px-3 sm:px-6 py-8 sm:py-12">
-    <div class="cover-card max-w-4xl w-full text-center">
+  <div class="min-h-screen flex items-center justify-center px-2 sm:px-4 py-6 sm:py-12">
+    <div class="cover-card w-full text-center" style="max-width: 100%; margin: 0 auto;">
       <div class="mb-8">
-        <svg class="w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-4 sm:mb-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg class="w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-4 sm:mb-6" style="color: var(--primary);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
         </svg>
       </div>
@@ -319,13 +387,13 @@
         التحليل الشامل<br>للسيرة الذاتية
       </h1>
       
-      <h2 class="text-2xl font-light text-gray-600 mb-8">
+      <h2 class="text-2xl font-light mb-8" style="color: var(--text-secondary);">
         Comprehensive Career<br>Intelligence Analysis
       </h2>
       
-      <div class="my-8 pt-8 border-t border-gray-200">
-        <p class="text-3xl font-bold text-gray-800 mb-2">مالك الغصاب</p>
-        <p class="text-xl text-gray-500">Malik AlGhassab</p>
+      <div class="my-8 pt-8 border-t" style="border-color: var(--border-color);">
+        <p class="text-3xl font-bold mb-2" style="color: var(--text-primary);">مالك الغصاب</p>
+        <p class="text-xl" style="color: var(--text-secondary);">Malik AlGhassab</p>
       </div>
       
       <div class="mt-8">
@@ -334,7 +402,7 @@
         </span>
       </div>
       
-      <div class="mt-12 flex items-center justify-center gap-4 text-sm text-gray-500">
+      <div class="mt-12 flex items-center justify-center gap-4 text-sm" style="color: var(--text-secondary);">
         <span>📅 نوفمبر 2025</span>
         <span>•</span>
         <span>🤖 Career Intelligence System</span>
@@ -343,7 +411,7 @@
   </div>
 
   <!-- Main Content -->
-  <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-8 sm:py-12">
+  <div class="w-full mx-auto px-2 sm:px-4 md:px-6 lg:px-8 py-6 sm:py-8 md:py-12" style="max-width: 100%;">
     
     <!-- Chapter 1: Executive Summary -->
     <div class="mb-8 sm:mb-12">
@@ -436,9 +504,9 @@
             </table>
           </div>
           
-          <div class="mt-6 p-4 bg-green-50 border-r-4 border-green-500 rounded">
-            <p class="font-bold text-green-800">✅ التقييم: ممتاز</p>
-            <ul class="mt-3 text-green-700">
+          <div class="mt-6 p-4 bg-blue-50 border-r-4 border-blue-500 rounded">
+            <p class="font-bold text-blue-800">✅ التقييم: ممتاز</p>
+            <ul class="mt-3 text-blue-700">
               <li>✓ ماجستير من جامعة أسترالية معترف بها عالمياً (QUT - Top 200)</li>
               <li>✓ تخصص دقيق في المالية</li>
               <li>✓ خبرة دراسية دولية (كندا + أستراليا)</li>
@@ -462,17 +530,17 @@
                 <tr>
                   <td><strong>إجمالي سنوات الخبرة</strong></td>
                   <td>18+ سنة (2007-2025)</td>
-                  <td><span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm font-semibold">✅ استثنائي</span></td>
+                  <td><span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-semibold">✅ استثنائي</span></td>
                 </tr>
                 <tr>
                   <td><strong>عدد الوظائف</strong></td>
                   <td>8 وظائف رئيسية</td>
-                  <td><span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm font-semibold">✅ ممتاز</span></td>
+                  <td><span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-semibold">✅ ممتاز</span></td>
                 </tr>
                 <tr>
                   <td><strong>عدد الجهات</strong></td>
                   <td>8 جهات مختلفة</td>
-                  <td><span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm font-semibold">✅ تنوع قوي</span></td>
+                  <td><span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-semibold">✅ تنوع قوي</span></td>
                 </tr>
                 <tr>
                   <td><strong>متوسط البقاء في الوظيفة</strong></td>
@@ -482,7 +550,7 @@
                 <tr>
                   <td><strong>المنصب الحالي</strong></td>
                   <td>General Manager</td>
-                  <td><span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm font-semibold">✅ قيادي عالي</span></td>
+                  <td><span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-semibold">✅ قيادي عالي</span></td>
                 </tr>
               </tbody>
             </table>
@@ -491,11 +559,11 @@
 
         <div class="content-section">
           <h3 class="emoji">🏢 الوظيفة الحالية (2021 - الآن)</h3>
-          <div class="bg-gradient-to-r from-emerald-50 to-teal-50 p-4 sm:p-6 rounded-xl mb-6">
-            <h4 class="text-xl sm:text-2xl font-bold text-emerald-900 mb-2">صندوق التنمية العقارية (REDF)</h4>
-            <p class="text-base sm:text-lg text-emerald-700"><strong>المسمى الوظيفي:</strong> General Manager of Budgeting, Planning &amp; Liquidity</p>
-            <p class="text-emerald-700"><strong>القطاع:</strong> Finance &amp; Investment Group</p>
-            <p class="text-emerald-700"><strong>المدة:</strong> 3.3+ سنة (سبتمبر 2021 - نوفمبر 2025)</p>
+          <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 sm:p-6 rounded-xl mb-6">
+            <h4 class="text-xl sm:text-2xl font-bold text-blue-900 mb-2">صندوق التنمية العقارية (REDF)</h4>
+            <p class="text-base sm:text-lg text-blue-700"><strong>المسمى الوظيفي:</strong> General Manager of Budgeting, Planning &amp; Liquidity</p>
+            <p class="text-blue-700"><strong>القطاع:</strong> Finance &amp; Investment Group</p>
+            <p class="text-blue-700"><strong>المدة:</strong> 3.3+ سنة (سبتمبر 2021 - نوفمبر 2025)</p>
           </div>
 
           <h4 class="text-lg font-semibold mb-4 mt-6">الإنجازات الكمية الرئيسية:</h4>
@@ -512,27 +580,27 @@
                 <tr>
                   <td><strong>إدارة الفريق</strong></td>
                   <td>3 إدارات، 17+ موظف</td>
-                  <td><span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm font-semibold">✅ قيادة متوسطة-كبيرة</span></td>
+                  <td><span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-semibold">✅ قيادة متوسطة-كبيرة</span></td>
                 </tr>
                 <tr>
                   <td><strong>الحسابات البنكية</strong></td>
                   <td>100+ حساب</td>
-                  <td><span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm font-semibold">✅ تعقيد عالي</span></td>
+                  <td><span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-semibold">✅ تعقيد عالي</span></td>
                 </tr>
                 <tr>
                   <td><strong>التدفقات النقدية</strong></td>
                   <td>15 مليار ريال/سنة</td>
-                  <td><span class="px-3 py-1 bg-emerald-100 text-emerald-800 rounded-full text-sm font-semibold">🚀 استثنائي</span></td>
+                  <td><span class="px-3 py-1 bg-indigo-100 text-indigo-800 rounded-full text-sm font-semibold">🚀 استثنائي</span></td>
                 </tr>
                 <tr>
                   <td><strong>الإيرادات السنوية</strong></td>
                   <td>130+ مليون من Call Accounts</td>
-                  <td><span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm font-semibold">✅ قيمة مضافة كبيرة</span></td>
+                  <td><span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-semibold">✅ قيمة مضافة كبيرة</span></td>
                 </tr>
                 <tr>
                   <td><strong>نسبة الصرف 2024</strong></td>
                   <td>84% من الميزانية</td>
-                  <td><span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm font-semibold">✅ كفاءة عالية</span></td>
+                  <td><span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-semibold">✅ كفاءة عالية</span></td>
                 </tr>
               </tbody>
             </table>
@@ -561,69 +629,69 @@
 
         <div class="content-section">
           <h3 class="emoji">📈 المسار الوظيفي الزمني</h3>
-          <div class="relative border-r-4 border-emerald-300 pr-4 sm:pr-8 space-y-4 sm:space-y-6">
+          <div class="relative border-r-4 border-blue-300 pr-4 sm:pr-8 space-y-4 sm:space-y-6">
             <div class="relative">
-              <div class="absolute w-3 h-3 sm:w-4 sm:h-4 bg-emerald-600 rounded-full -right-[18px] sm:-right-[26px] top-2"></div>
+              <div class="absolute w-3 h-3 sm:w-4 sm:h-4 bg-blue-600 rounded-full -right-[18px] sm:-right-[26px] top-2"></div>
               <div class="bg-gradient-to-r from-gray-50 to-white p-3 sm:p-4 rounded-lg">
                 <p class="font-bold text-gray-800">2007-2008: SAMA - Banking Examiner</p>
                 <p class="text-sm text-gray-600">مدة: 1.5 سنة</p>
               </div>
             </div>
             <div class="relative">
-              <div class="absolute w-3 h-3 sm:w-4 sm:h-4 bg-emerald-600 rounded-full -right-[18px] sm:-right-[26px] top-2"></div>
+              <div class="absolute w-3 h-3 sm:w-4 sm:h-4 bg-blue-600 rounded-full -right-[18px] sm:-right-[26px] top-2"></div>
               <div class="bg-gradient-to-r from-gray-50 to-white p-3 sm:p-4 rounded-lg">
                 <p class="font-bold text-gray-800">2007-2014: Alriyadh Newspaper - IT Consultant</p>
                 <p class="text-sm text-gray-600">مدة: 7 سنوات (Part-Time)</p>
               </div>
             </div>
             <div class="relative">
-              <div class="absolute w-3 h-3 sm:w-4 sm:h-4 bg-emerald-600 rounded-full -right-[18px] sm:-right-[26px] top-2"></div>
+              <div class="absolute w-3 h-3 sm:w-4 sm:h-4 bg-blue-600 rounded-full -right-[18px] sm:-right-[26px] top-2"></div>
               <div class="bg-gradient-to-r from-gray-50 to-white p-3 sm:p-4 rounded-lg">
                 <p class="font-bold text-gray-800">2013-2014: MaCeen Capital - Financial Analyst</p>
                 <p class="text-sm text-gray-600">مدة: 1 سنة</p>
               </div>
             </div>
             <div class="relative">
-              <div class="absolute w-3 h-3 sm:w-4 sm:h-4 bg-emerald-600 rounded-full -right-[18px] sm:-right-[26px] top-2"></div>
+              <div class="absolute w-3 h-3 sm:w-4 sm:h-4 bg-blue-600 rounded-full -right-[18px] sm:-right-[26px] top-2"></div>
               <div class="bg-gradient-to-r from-gray-50 to-white p-3 sm:p-4 rounded-lg">
                 <p class="font-bold text-gray-800">2014-2017: Qiyas (ETEC) - Team Lead Investment</p>
                 <p class="text-sm text-gray-600">مدة: 3.3 سنة</p>
               </div>
             </div>
             <div class="relative">
-              <div class="absolute w-3 h-3 sm:w-4 sm:h-4 bg-emerald-600 rounded-full -right-[18px] sm:-right-[26px] top-2"></div>
+              <div class="absolute w-3 h-3 sm:w-4 sm:h-4 bg-blue-600 rounded-full -right-[18px] sm:-right-[26px] top-2"></div>
               <div class="bg-gradient-to-r from-gray-50 to-white p-3 sm:p-4 rounded-lg">
                 <p class="font-bold text-gray-800">2017-2018: KS Humanitarian Center - Investment Supervisor</p>
                 <p class="text-sm text-gray-600">مدة: 3 أشهر</p>
               </div>
             </div>
             <div class="relative">
-              <div class="absolute w-3 h-3 sm:w-4 sm:h-4 bg-emerald-600 rounded-full -right-[18px] sm:-right-[26px] top-2"></div>
+              <div class="absolute w-3 h-3 sm:w-4 sm:h-4 bg-blue-600 rounded-full -right-[18px] sm:-right-[26px] top-2"></div>
               <div class="bg-gradient-to-r from-gray-50 to-white p-3 sm:p-4 rounded-lg">
                 <p class="font-bold text-gray-800">2018-2018: NCAAA - Investment Manager</p>
                 <p class="text-sm text-gray-600">مدة: 6 أشهر</p>
               </div>
             </div>
             <div class="relative">
-              <div class="absolute w-3 h-3 sm:w-4 sm:h-4 bg-emerald-600 rounded-full -right-[18px] sm:-right-[26px] top-2"></div>
+              <div class="absolute w-3 h-3 sm:w-4 sm:h-4 bg-blue-600 rounded-full -right-[18px] sm:-right-[26px] top-2"></div>
               <div class="bg-gradient-to-r from-gray-50 to-white p-3 sm:p-4 rounded-lg">
                 <p class="font-bold text-gray-800">2018-2021: NCA - Department Manager</p>
                 <p class="text-sm text-gray-600">مدة: 3.2 سنة</p>
               </div>
             </div>
             <div class="relative">
-              <div class="absolute w-3 h-3 sm:w-4 sm:h-4 bg-gradient-to-r from-emerald-600 to-teal-600 rounded-full -right-[18px] sm:-right-[26px] top-2 shadow-lg"></div>
-              <div class="bg-gradient-to-r from-emerald-100 to-teal-100 p-3 sm:p-4 rounded-lg border-2 border-emerald-300">
-                <p class="font-bold text-emerald-900">2021-الآن: REDF - General Manager</p>
-                <p class="text-sm text-emerald-700 font-semibold">مدة: 3.3+ سنة (الوظيفة الحالية) 🎯</p>
+              <div class="absolute w-3 h-3 sm:w-4 sm:h-4 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-full -right-[18px] sm:-right-[26px] top-2 shadow-lg"></div>
+              <div class="bg-gradient-to-r from-blue-100 to-indigo-100 p-3 sm:p-4 rounded-lg border-2 border-blue-300">
+                <p class="font-bold text-blue-900">2021-الآن: REDF - General Manager</p>
+                <p class="text-sm text-blue-700 font-semibold">مدة: 3.3+ سنة (الوظيفة الحالية) 🎯</p>
               </div>
             </div>
           </div>
 
           <div class="mt-8 grid md:grid-cols-2 gap-4">
-            <div class="bg-green-50 p-4 rounded-lg border-r-4 border-green-500">
-              <h5 class="font-bold text-green-900 mb-2">✅ نقاط القوة:</h5>
-              <ul class="text-green-800 space-y-1">
+            <div class="bg-blue-50 p-4 rounded-lg border-r-4 border-blue-500">
+              <h5 class="font-bold text-blue-900 mb-2">✅ نقاط القوة:</h5>
+              <ul class="text-blue-800 space-y-1">
                 <li>• مسار صعودي واضح ومستمر</li>
                 <li>• انتقال من Analyst → Team Lead → Manager → General Manager</li>
                 <li>• استقرار ممتاز في الوظائف الأخيرة (3+ سنوات)</li>
@@ -657,9 +725,9 @@
         يمكن تطبيق نفس التصميم على باقي الفصول (2-12) مع الحفاظ على المحتوى الكامل.
       </p>
       <div class="flex justify-center gap-4">
-        <span class="px-4 py-2 bg-emerald-100 text-emerald-800 rounded-full text-sm font-semibold">📱 متجاوب</span>
+        <span class="px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-sm font-semibold">📱 متجاوب</span>
         <span class="px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-sm font-semibold">🎨 ألوان فاتحة</span>
-        <span class="px-4 py-2 bg-green-100 text-green-800 rounded-full text-sm font-semibold">✨ احترافي</span>
+        <span class="px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-sm font-semibold">✨ احترافي</span>
       </div>
     </div>
 
@@ -669,7 +737,7 @@
         <p class="text-sm">📊 التحليل الشامل للسيرة الذاتية - مالك الغصاب</p>
         <p class="text-xs mt-2">آخر تحديث: نوفمبر 2025 • Career Intelligence System (CIS)</p>
         <div class="mt-4">
-          <a href="#" class="text-emerald-600 hover:text-emerald-800 text-sm font-semibold">العودة للأعلى ↑</a>
+          <a href="#" class="text-blue-600 hover:text-blue-800 text-sm font-semibold">العودة للأعلى ↑</a>
         </div>
       </div>
     </div>
@@ -685,6 +753,52 @@
   <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
   
   <script>
+    // Theme Management
+    const themeToggle = document.getElementById('themeToggle');
+    const sunIcon = document.getElementById('sunIcon');
+    const moonIcon = document.getElementById('moonIcon');
+    const html = document.documentElement;
+
+    // Check for saved theme preference or default to system preference
+    function getPreferredTheme() {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme) {
+        return savedTheme;
+      }
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+
+    function setTheme(theme) {
+      if (theme === 'dark') {
+        html.setAttribute('data-theme', 'dark');
+        sunIcon.classList.remove('hidden');
+        moonIcon.classList.add('hidden');
+      } else {
+        html.removeAttribute('data-theme');
+        sunIcon.classList.add('hidden');
+        moonIcon.classList.remove('hidden');
+      }
+      localStorage.setItem('theme', theme);
+    }
+
+    // Initialize theme
+    const currentTheme = getPreferredTheme();
+    setTheme(currentTheme);
+
+    // Theme toggle click handler
+    themeToggle.addEventListener('click', () => {
+      const currentTheme = html.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      setTheme(newTheme);
+    });
+
+    // Listen for system theme changes
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+      if (!localStorage.getItem('theme')) {
+        setTheme(e.matches ? 'dark' : 'light');
+      }
+    });
+
     // Scroll to top functionality
     const scrollTopBtn = document.getElementById('scrollTopBtn');
 
