@@ -1,0 +1,17 @@
+{
+  "name": "malik",
+  "version": "1.0.0",
+  "description": "Malik website with Hono + DaisyUI + Cloudflare",
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy"
+  },
+  "dependencies": {
+    "hono": "^3.12.0"
+  },
+  "devDependencies": {
+    "wrangler": "^3.19.0"
+  }
+}
+

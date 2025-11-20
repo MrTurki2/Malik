@@ -1,0 +1,18 @@
+name = "malik"
+main = "worker.js"
+compatibility_date = "2024-11-19"
+account_id = "90b07c0a49829c5d9a0d9795165a45d8"
+workers_dev = true
+
+[vars]
+ENVIRONMENT = "production"
+
+# Bind static assets
+[assets]
+directory = "./public"
+
+# Custom Domain
+[[routes]]
+pattern = "malik.kapps.cc"
+custom_domain = true
+
